@@ -92,7 +92,7 @@ Balance left     589
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/yourusername/fawry-ecommerce-task
+   git clone https://github.com/Mohamed-Magdy-Dewidar/fawry-ecommerce-task
    ```
 
 2. Open in Visual Studio or run:
