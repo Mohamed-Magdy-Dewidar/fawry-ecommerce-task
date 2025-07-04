@@ -47,13 +47,9 @@ namespace Ecommerce_Fawry_Task
             customer.Cart.AddItem(scratchCard, 1);   // 50 EGP
 
 
-
-
-            // shippment fees -> 10 EGP per kg
-
-
             // Checkout
             checkoutService.Checkout(customer, customer.Cart);
+
 
         }
     }

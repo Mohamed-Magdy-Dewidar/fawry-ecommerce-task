@@ -12,6 +12,8 @@ namespace Ecommerce_Fawry_Task.CartModule
         //public int Id { get; set; }
         public Product product { get; set; }
 
+
+        // i added validation for quantity in the CustomerCart class
         //public int Quantity 
         //{ 
         //    get
