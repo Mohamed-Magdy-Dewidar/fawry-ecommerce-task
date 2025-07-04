@@ -49,11 +49,24 @@ A clean and modular C# console application implementing the Fawry Quantum Intern
 ## 🧪 Example Code Flow
 
 ```csharp
-customer.Cart.AddItem(cheese, 2);
-customer.Cart.AddItem(biscuits, 1);
-customer.Cart.AddItem(scratchCard, 1);
+// Customer setup
+var customer = new Customer { Id = 1, Name = "Mohamed", Balance = 1000 };
 
+var cheese = new ExpirableProduct { Id = 1, Name = "Cheese", Price = 100, Quantity = 5, ExpiryDate = DateTime.Now.AddDays(2) };
+var biscuits = new ExpirableProduct { Id = 2, Name = "Biscuits", Price = 150, Quantity = 5, ExpiryDate = DateTime.Now.AddDays(5) };
+var scratchCard = new NonExpirableProduct { Id = 3, Name = "ScratchCard", Price = 50, Quantity = 10 };
+
+// Wrap shippables
+var shippableCheese = new ShippableProductAdapter(cheese, 0.3);
+var shippableBiscuits = new ShippableProductAdapter(biscuits, 0.7);
+
+customer.Cart.AddItem(shippableCheese, 2);        // 200 EGP
+customer.Cart.AddItem(shippableBiscuits, 1);      // 150 EGP
+customer.Cart.AddItem(scratchCard, 1);   // 50 EGP
+
+// Checkout
 checkoutService.Checkout(customer, customer.Cart);
+
 ```
 
 ### ✅ Console Output
