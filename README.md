@@ -1,0 +1,118 @@
+# Fawry E-Commerce Checkout System 🛒
+
+A clean and modular C# console application implementing the Fawry Quantum Internship Challenge 3 – a simplified e-commerce system with cart functionality, product expiration, shipping calculation, and checkout logic.
+
+## ✅ Features
+
+- 🧾 **Products**
+  - Name, Price, Quantity
+  - Expirable or Non-Expirable
+  - Shippable or Non-Shippable
+
+- 🛒 **Cart**
+  - Add products with quantity (validates against available stock)
+  - Prevent duplicate product entries (merge quantities)
+
+- 🚚 **Shipping**
+  - Products implementing `IShippable` provide `GetName()` and `GetWeight()`
+  - Shipping fee = 10 EGP per kg
+  - Shipping items grouped and total weight printed
+
+- 💳 **Checkout**
+  - Subtotal, shipping, total amount, and balance left printed
+  - Fails with meaningful errors if:
+    - Cart is empty
+    - Product is out of stock
+    - Product is expired
+    - Customer has insufficient balance
+
+## 💡 Architecture
+
+- Clean layered design:
+  - `ProductModule` → defines domain logic (products, expiration)
+  - `CartModule` → manages `CartItem` and `CustomerCart`
+  - `CustomerModule` → handles customer and balance
+  - `Services` → `CheckoutService`, `ShippingService`, `ReceiptPrinterService`
+  - `ServiceAbstractions` → interfaces for abstraction and DI
+
+## 🧠 Design Patterns Used
+
+- **Adapter Pattern**  
+  - Used to wrap `Product` objects that need to be `IShippable`
+
+- **Interface-Based Design (SOLID)**  
+  - All core services depend on abstractions (`IShippingService`, `IReceiptPrinterService`, `ICheckOutService`)
+
+- **Single Responsibility Principle**  
+  - Each class handles a single concern (e.g., printing receipt, calculating shipping)
+
+## 🧪 Example Code Flow
+
+```csharp
+customer.Cart.AddItem(cheese, 2);
+customer.Cart.AddItem(biscuits, 1);
+customer.Cart.AddItem(scratchCard, 1);
+
+checkoutService.Checkout(customer, customer.Cart);
+```
+
+### ✅ Console Output
+
+```
+** Shipment notice **
+2x Cheese        400g
+1x Biscuits      700g
+Total package weight 1.1kg
+
+** Checkout receipt **
+2x Cheese        200
+1x Biscuits      150
+1x ScratchCard   50
+----------------------
+Subtotal         400
+Shipping         11
+Amount           411
+Balance left     589
+```
+
+## 🚀 How to Run
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/yourusername/fawry-ecommerce-task
+   ```
+
+2. Open in Visual Studio or run:
+   ```bash
+   dotnet run
+   ```
+
+## 📁 Project Structure
+
+```
+Ecommerce-Fawry-Task/
+│
+├── Program.cs
+├── ProductModule/
+├── CartModule/
+├── CustomerModule/
+├── Shipping/
+├── Services/
+└── ServiceAbstractions/
+```
+
+## 📌 Assumptions
+
+- Shipping rate is fixed at **10 EGP/kg**
+- Product weight is per-unit
+- Expired products are excluded from checkout
+- Non-shippable items do not go to `ShippingService`
+
+## 👨‍💻 Author
+
+Mohamed Magdy – Nile University  
+Submitted as part of the **Fawry Rise Full Stack Internship**
+
+---
+
+> “Build clean. Fail fast. Ship smart.” 💼
